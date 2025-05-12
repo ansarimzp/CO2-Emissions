@@ -1,0 +1,109 @@
+USE co2_emission;
+
+# Top 10 Countries by Total CO₂ Emissions (Latest Year)
+SELECT country, SUM(value) AS total_emissions
+FROM dataset
+WHERE date = (SELECT MAX(date) FROM dataset)
+GROUP BY country
+ORDER BY total_emissions DESC
+LIMIT 10;
+
+
+# Total Global CO₂ Emissions by Year
+SELECT date, SUM(value) AS global_emissions
+FROM dataset
+GROUP BY date
+ORDER BY date;
+
+# Top Emitting Sectors in Latest Year
+SELECT sector, SUM(value) AS total_sector_emissions
+FROM dataset
+WHERE date = (SELECT MAX(date) FROM dataset)
+GROUP BY sector
+ORDER BY total_sector_emissions DESC;
+
+# Sector-wise Emissions Trend for a Specific Country (e.g., India)
+SELECT date, sector, SUM(value) AS emissions
+FROM dataset
+WHERE country = 'India'
+GROUP BY date, sector
+ORDER BY date, sector;
+
+# Country with the Highest Total Emissions Across All Years
+SELECT country, SUM(value) AS total_emissions
+FROM dataset
+GROUP BY country
+ORDER BY total_emissions DESC
+LIMIT 1;
+
+# Top 5 Polluting Sectors Across All Countries and Years
+SELECT sector, SUM(value) AS total_emissions
+FROM dataset
+GROUP BY sector
+ORDER BY total_emissions DESC
+LIMIT 5;
+
+# Annual CO₂ Emissions of a Specific Sector (e.g., 'Transport')
+SELECT date, SUM(value) AS transport_emissions
+FROM dataset
+WHERE sector = 'Transport'
+GROUP BY date
+ORDER BY date;
+
+# Compare Emissions Between Two Countries (e.g., India vs. China)
+SELECT date, country, SUM(value) AS total_emissions
+FROM dataset
+WHERE country IN ('India', 'China')
+GROUP BY date, country
+ORDER BY date, country;
+
+# Find Which Country Has the Highest Emission in 2022
+SELECT country, SUM(value) AS total_emissions
+FROM dataset
+WHERE date = '2022'
+GROUP BY country
+ORDER BY total_emissions DESC
+LIMIT 1;
+
+# Year with Peak Global Emissions
+SELECT date, SUM(value) AS global_emissions
+FROM dataset
+GROUP BY date
+ORDER BY global_emissions DESC
+LIMIT 1;
+#  Year-over-Year (YoY) Emission Growth Rate by Country
+SELECT
+    curr.country,
+    curr.date AS current_year,
+    curr.total_emissions,
+    prev.total_emissions AS previous_year_emissions,
+    ROUND(((curr.total_emissions - prev.total_emissions) / prev.total_emissions) * 100, 2) AS yoy_growth_percent
+FROM (
+    SELECT country, date, SUM(value) AS total_emissions
+    FROM dataset
+    GROUP BY country, date
+) curr
+JOIN (
+    SELECT country, date, SUM(value) AS total_emissions
+    FROM dataset
+    GROUP BY country, date
+) prev
+ON curr.country = prev.country AND curr.date = CAST(prev.date AS UNSIGNED) + 1
+ORDER BY country, current_year;
+
+#  Countries with Continuous Yearly Emissions Increase (Streak)
+
+SELECT country
+FROM (
+    SELECT country, date, SUM(value) AS yearly_emission
+    FROM dataset
+    GROUP BY country, date
+) ranked
+JOIN (
+    SELECT country, date, SUM(value) AS next_year_emission
+    FROM dataset
+    GROUP BY country, date
+) next_year
+ON ranked.country = next_year.country AND CAST(ranked.date AS UNSIGNED) + 1 = CAST(next_year.date AS UNSIGNED)
+GROUP BY ranked.country
+HAVING COUNT(*) = (SELECT COUNT(DISTINCT date) - 1 FROM dataset)
