@@ -1,0 +1,271 @@
+1. What are the key differences between INNER JOIN and OUTER JOIN in SQL?
+INNER JOIN returns only records with matching values in both tables.
+
+OUTER JOIN includes all records from one or both tables and fills in NULLs where there's no match.
+
+LEFT OUTER JOIN: All from left + matching from right
+
+RIGHT OUTER JOIN: All from right + matching from left
+
+FULL OUTER JOIN: All from both, with NULLs for unmatched sides
+
+2. How do you handle missing data in a dataset?
+Identify missing values using isnull() (Python) or IS NULL (SQL)
+
+Decide based on context:
+
+Drop rows/columns if data is not significant
+
+Impute with mean, median, or mode
+
+Use predictive models (like KNN)
+
+Flag missing data as a separate category if meaningful
+
+3. What is the difference between variance and standard deviation?
+Variance is the average of squared differences from the mean.
+
+Standard deviation is the square root of variance—provides a scale closer to the data.
+
+4. Explain the concept of normalization in databases.
+Normalization structures a database to reduce redundancy and dependency.
+
+It involves organizing data into multiple related tables.
+
+It improves data integrity and efficiency (1NF → 5NF).
+
+5. What is the role of a primary key in a relational database?
+A primary key uniquely identifies each record.
+
+It ensures no duplicates and helps create relationships between tables via foreign keys.
+
+6. How would you detect outliers in a dataset?
+Use statistical methods like:
+
+Z-Score: if > 3 or < -3
+
+IQR method: values outside 1.5 * IQR
+
+Visualization: boxplots, scatter plots
+
+Model-based detection (e.g., Isolation Forest)
+
+7. What is data wrangling and why is it important?
+Data wrangling is the process of cleaning, enriching, and transforming raw data into a usable format.
+
+It ensures consistency, completeness, and readiness for analysis or modeling.
+
+8. Describe a situation where you used data to solve a business problem.
+I analyzed customer churn for a telecom client.
+
+Found high-risk customer segments based on service calls and contract type.
+
+Recommended retention strategies, leading to a 12% drop in churn.
+
+9. What is the difference between a clustered and a non-clustered index?
+Clustered Index: Data is physically stored in the order of the index. Only one per table.
+
+Non-clustered Index: Separate structure; holds pointers to the actual data rows.
+
+10. Explain the difference between supervised and unsupervised learning.
+Supervised Learning: Trains on labeled data (e.g., classification, regression).
+
+Unsupervised Learning: Finds patterns in unlabeled data (e.g., clustering, PCA).
+
+11. What is the purpose of the GROUP BY clause in SQL?
+Used to aggregate data (e.g., SUM, COUNT, AVG) based on one or more columns.
+
+Example: sales by region or revenue by month.
+
+12. How do you handle duplicate data entries in a dataset?
+Use functions like drop_duplicates() (Python) or DISTINCT in SQL
+
+Identify patterns (e.g., same name/email) before deciding what to drop
+
+Keep one record or merge intelligently
+
+13. What is a pivot table and how have you used it?
+Pivot tables summarize data dynamically.
+
+I’ve used them to analyze sales by region, product, and time in Excel and Power BI.
+
+14. Explain the differences between a bar chart and a histogram.
+Bar chart: Compares categorical data (e.g., sales by region).
+
+Histogram: Shows frequency distribution of continuous variables.
+
+15. How do you optimize a slow SQL query?
+Add appropriate indexes
+
+Use EXPLAIN PLAN to debug
+
+Minimize subqueries and joins
+
+Select only necessary columns
+
+Avoid SELECT *
+
+16. What are the common KPIs used in business analysis?
+Revenue, Profit Margin, Conversion Rate, CAC, Churn Rate, ROI, NPS, Average Order Value.
+
+17. What is A/B testing and how is it used in data analysis?
+A/B testing compares two variants (control vs test).
+
+Measures impact of changes (e.g., design, pricing) using statistical testing.
+
+18. How do you ensure data accuracy and integrity in a project?
+Apply data validation rules
+
+Use constraints (e.g., primary/foreign keys)
+
+Regularly audit, clean, and test against source data
+
+19. What is a correlation matrix and how do you interpret it?
+A matrix showing pairwise correlation coefficients.
+
+Values close to 1 or -1 indicate strong positive or negative correlation.
+
+20. What is the difference between correlation and causation?
+Correlation: two variables move together
+
+Causation: one variable directly affects the other
+
+Correlation ≠ causation
+
+21. Describe a data project where you used Python.
+Built a CO₂ emissions dashboard
+
+Used pandas for preprocessing and matplotlib for sector trends
+
+Forecasted emissions with ARIMA
+
+22. What libraries do you use for data analysis in Python?
+pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Plotly, statsmodels
+
+23. Explain the use of Pandas groupby() function.
+Groups data by key columns to apply aggregation functions like sum, mean, or count.
+
+24. How do you deal with imbalanced datasets?
+Use resampling (SMOTE, oversampling)
+
+Adjust class weights
+
+Use evaluation metrics like ROC-AUC or F1-score
+
+25. What are the steps of a typical data analysis pipeline?
+Define the problem
+
+Collect data
+
+Clean & prepare data
+
+Explore & analyze
+
+Model (optional)
+
+Visualize & communicate findings
+
+26. What is the purpose of data visualization?
+To communicate insights clearly and drive informed decision-making.
+
+27. Explain the difference between ETL and ELT.
+ETL: Extract → Transform → Load (used in on-prem systems)
+
+ELT: Extract → Load → Transform (used in cloud data warehouses)
+
+28. What is the difference between OLAP and OLTP systems?
+OLAP: Read-heavy, used for analysis (e.g., BI dashboards)
+
+OLTP: Write-heavy, used for real-time transactions (e.g., e-commerce)
+
+29. How do you decide which chart to use for a dataset?
+Based on data type:
+
+Time → line chart
+
+Categories → bar chart
+
+Distribution → histogram
+
+Relationships → scatter plot
+
+30. What is time series analysis and where have you used it?
+Analyzing data over time to find patterns, trends, and seasonality
+
+Used in forecasting emissions and predicting sales
+
+31. Describe your experience with Tableau or Power BI.
+Built dashboards with KPIs, slicers, drilldowns
+
+Used DAX in Power BI and calculated fields in Tableau for advanced metrics
+
+32. What are dimensions and measures in Tableau?
+Dimensions: Qualitative values (e.g., Region, Product)
+
+Measures: Quantitative values (e.g., Revenue, Units Sold)
+
+33. How do you track data quality over time?
+Implement data profiling, anomaly alerts, and regular audits
+
+34. What is multicollinearity and why is it a problem?
+When independent variables are highly correlated
+
+It makes model coefficients unreliable in regression
+
+35. How would you analyze user behavior on a website?
+Track metrics like session duration, bounce rate, click paths
+
+Use tools like Google Analytics and SQL event logs
+
+36. What are your favorite Python functions for data analysis?
+groupby(), merge(), pivot_table(), apply(), value_counts()
+
+37. What is data cleaning and how do you perform it?
+Handling missing, inconsistent, or duplicate data
+
+Use pandas or SQL to filter, fill, and standardize
+
+38. What does the term 'data storytelling' mean to you?
+Presenting data insights as a narrative to influence decisions
+
+39. How do you handle large datasets efficiently?
+Use chunking, indexing, Dask/Polars, or load into SQL databases
+
+40. What are lag and lead functions in SQL?
+Access previous or next row values—useful for time comparisons
+
+41. What is a hypothesis test and when would you use it?
+To determine if a result is statistically significant
+
+Used in A/B testing or comparing two groups
+
+42. How do you explain complex data insights to non-technical stakeholders?
+Use clear visuals, analogies, and focus on impact rather than statistics
+
+43. What is the difference between a heatmap and a scatter plot?
+Heatmap: Shows intensity with color
+
+Scatter plot: Plots relationships between two numeric variables
+
+44. How do you validate a machine learning model?
+Use train-test split, cross-validation, and metrics like accuracy, precision, recall, and F1-score
+
+45. Describe a challenging dataset you worked on.
+A real estate dataset with missing prices, inconsistent formatting, and noisy text columns
+
+46. What is the role of feature engineering in data analysis?
+Creating new variables from raw data to improve model performance
+
+47. What is the difference between a data analyst and a data scientist?
+Analysts explore and visualize data; scientists build predictive models and perform advanced analytics
+
+48. How do you prioritize tasks when working on multiple data projects?
+Based on business impact, deadlines, dependencies, and stakeholder urgency
+
+49. What steps do you take before starting a data analysis project?
+Understand the problem, scope, and stakeholders
+
+Review available data and plan the analysis workflow
+
+50. Describe a situation where your analysis had a measurable business impact
+My sales funnel analysis identified a drop-off stage, which after optimization, increased conversions by 18%.
